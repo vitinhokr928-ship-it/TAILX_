@@ -258,6 +258,11 @@ header{background:rgba(36,0,70,0.85);padding:14px 20px;position:sticky;top:0;z-i
 .btn-donate{background:linear-gradient(135deg,#ffd700,#ff8c42);color:#000;border:none;border-radius:8px;padding:8px 16px;font-weight:900;font-size:.82rem;cursor:pointer;font-family:'Mojang',sans-serif;transition:all .2s;box-shadow:0 0 12px rgba(255,200,0,.3);}
 .btn-donate:hover{box-shadow:0 0 22px rgba(255,200,0,.6);transform:translateY(-1px);}
 
+/* ── ADM BADGE ── */
+.adm-floating-btn{position:fixed;bottom:9.5rem;right:1.5rem;z-index:500;background:linear-gradient(135deg,#f5c518,#ff8c42);color:#000;width:42px;height:42px;border-radius:50%;font-size:1rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(245,197,24,.6);border:none;transition:all .2s;}
+.adm-floating-btn:hover{box-shadow:0 0 26px rgba(245,197,24,.9);transform:scale(1.1);}
+.adm-floating-btn.show{display:flex;}
+
 
 .btn-share{background:transparent;border:1px solid var(--border2);color:var(--muted2);font-size:.8rem;padding:5px 8px;border-radius:6px;cursor:pointer;font-family:'Mojang',sans-serif;transition:all .2s;}
 .btn-share:hover{border-color:#C77DFF88;color:#C77DFF;}
@@ -574,6 +579,37 @@ body.has-wallpaper .preview-box,body.has-wallpaper .edit-box,body.has-wallpaper 
   85%{transform:translateY(0) scaleY(.88);}
   100%{transform:translateY(0) scaleY(1);}
 }
+
+/* ── USERNAME MODAL ── */
+#usernameModal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
+#usernameModal.show{display:flex;}
+.uname-box{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:2rem 1.6rem;max-width:340px;width:92%;box-shadow:0 0 50px var(--glow),0 8px 40px rgba(0,0,0,.7);animation:unameIn .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes unameIn{from{transform:scale(.75) translateY(28px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.uname-logo{text-align:center;font-family:'Orbitron',sans-serif;font-size:1.15rem;font-weight:900;letter-spacing:3px;color:var(--green);margin-bottom:.25rem;text-shadow:0 0 18px var(--glow);}
+.uname-logo span{color:#fff;}
+.uname-sub{text-align:center;font-size:.88rem;color:#bbc;margin-bottom:1.4rem;font-family:'Rajdhani',sans-serif;line-height:1.5;}
+.uname-field{width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;padding:.75rem 1rem;font-size:1rem;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:.5px;outline:none;box-sizing:border-box;transition:border-color .2s,box-shadow .2s;}
+.uname-field:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--glow);}
+.uname-field.err{border-color:var(--red);}
+.uname-btn{width:100%;margin-top:.9rem;padding:.82rem;background:linear-gradient(135deg,var(--green2),var(--green));border:none;border-radius:10px;color:#fff;font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:2px;cursor:pointer;transition:opacity .2s,transform .1s;box-shadow:0 4px 20px var(--glow);}
+.uname-btn:active{transform:scale(.97);}
+.uname-hint{text-align:center;font-size:.7rem;color:var(--muted);margin-top:.8rem;}
+
+/* ── NOTIFICAÇÃO ESTILO DISCORD ── */
+#joinNotif{position:fixed;bottom:1.5rem;left:1.5rem;z-index:99998;display:flex;flex-direction:column;gap:.45rem;pointer-events:none;}
+.join-card{display:flex;align-items:center;gap:.7rem;background:rgba(26,0,58,.95);border:1px solid var(--border2);border-left:3px solid var(--green);border-radius:10px;padding:.6rem .95rem;font-size:.8rem;color:#ddd;box-shadow:0 4px 22px rgba(0,0,0,.6);animation:jcIn .35s cubic-bezier(.34,1.56,.64,1);max-width:240px;pointer-events:auto;backdrop-filter:blur(8px);}
+.join-card.leave{border-left-color:var(--red);}
+@keyframes jcIn{from{transform:translateX(-55px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes jcOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-40px)}}
+.join-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;color:#fff;font-family:'Orbitron',sans-serif;flex-shrink:0;}
+.join-info b{color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;display:block;line-height:1.2;}
+.join-info span{color:var(--muted);font-size:.68rem;}
+
+/* ── CHIP DE USUÁRIO ── */
+.user-chip{display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border2);border-radius:999px;padding:4px 10px 4px 4px;cursor:pointer;transition:border-color .2s,box-shadow .2s;flex-shrink:0;}
+.user-chip:hover{border-color:var(--green);box-shadow:0 0 10px var(--glow);}
+.chip-avatar{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:900;color:#fff;font-family:'Orbitron',sans-serif;flex-shrink:0;}
+.chip-name{font-size:.72rem;font-weight:700;color:var(--green);font-family:'Rajdhani',sans-serif;letter-spacing:.5px;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -630,9 +666,28 @@ body.has-wallpaper .preview-box,body.has-wallpaper .edit-box,body.has-wallpaper 
     <div class="search-wrap">
       <input id="searchInput" placeholder="🔍 Buscar addons, maps, skins..." oninput="applyFilters()">
     </div>
+    <div class="user-chip" id="userChip" onclick="openUnameEdit()" title="Meu perfil" style="display:none;">
+      <div class="chip-avatar" id="chipAvatar">?</div>
+      <div class="chip-name" id="chipName">...</div>
+    </div>
     <button class="menuBtn" onclick="openMenu()" title="Admin">⋮</button>
   </div>
 </header>
+
+<!-- ── MODAL DE NOME DE USUÁRIO ── -->
+<div id="usernameModal">
+  <div class="uname-box">
+    <div class="uname-logo">TAILS <span>HUB</span></div>
+    <div class="uname-sub" id="unameSubtitle">👋 Bem-vindo! Como quer ser chamado?</div>
+    <input class="uname-field" id="unameInput" maxlength="20" placeholder="Seu nome de usuário..." autocomplete="off"
+      onkeydown="if(event.key==='Enter')submitUname()">
+    <button class="uname-btn" id="unameBtn" onclick="submitUname()">ENTRAR 🚀</button>
+    <div class="uname-hint">Máx. 20 caracteres · Salvo no seu dispositivo</div>
+  </div>
+</div>
+
+<!-- ── NOTIFICAÇÕES ESTILO DISCORD ── -->
+<div id="joinNotif"></div>
 
 <!-- HOME -->
 <div id="homePage" class="wrap">
@@ -922,6 +977,18 @@ body.has-wallpaper .preview-box,body.has-wallpaper .edit-box,body.has-wallpaper 
       <label>💛 Link de Doação (opcional)</label>
       <input id="donateInput" placeholder="Ex: https://livepix.gg/seunome ou apoia.se/...">
     </div>
+    <div class="form-group" style="background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--muted2);">🔒 Visibilidade do Item</div>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:2px;" id="privacyHint">🌐 Público — visível para todos</div>
+        </div>
+        <label class="toggle-wrap">
+          <input type="checkbox" id="isPrivateInput" onchange="updatePrivacyHint()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
 
     <!-- hidden fields for gallery (populated by upload handlers) -->
     <input type="hidden" id="videoInput">
@@ -1144,6 +1211,18 @@ body.has-wallpaper .preview-box,body.has-wallpaper .edit-box,body.has-wallpaper 
       <label>💛 Link de Doação</label>
       <input id="editDonate" placeholder="https://livepix.gg/...">
     </div>
+    <div class="form-group" style="background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--muted2);">🔒 Visibilidade</div>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:2px;" id="editPrivacyHint">🌐 Público</div>
+        </div>
+        <label class="toggle-wrap">
+          <input type="checkbox" id="editIsPrivate" onchange="document.getElementById('editPrivacyHint').textContent=this.checked?'🔒 Privado — só o ADM vê':'🌐 Público — visível para todos'">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
 
     <!-- ── GALERIA DE MÍDIA ── -->
     <div style="margin-top:18px;margin-bottom:6px;padding:12px 14px;background:var(--bg);border:1px solid var(--border2);border-radius:12px;">
@@ -1235,6 +1314,7 @@ body.has-wallpaper .preview-box,body.has-wallpaper .edit-box,body.has-wallpaper 
 </div>
 <button id="settingsBtn" onclick="toggleSettings()" title="Configurações">⚙️</button>
 <button id="suggestBtn" onclick="openSuggest()" title="Enviar sugestão">💡</button>
+<button id="admPanelBtn" class="adm-floating-btn" onclick="goAdminPanel()" title="Painel ADM">👑</button>
 
 <!-- MODAL SUGESTÃO -->
 <div id="suggestModal" onclick="closeSuggestOut(event)">
@@ -1462,7 +1542,8 @@ async function loadItems() {
         fileName: r.file_name || '', downloads: r.downloads || 0, date: r.date,
         changelog: extras.changelog || '', eventTag: extras.event_tag || '',
         scheduled: extras.scheduled || null, donateUrl: extras.donate_url || '',
-        videoUrl: extras.video_url || '', extraImgs: extras.extra_imgs || []
+        videoUrl: extras.video_url || '', extraImgs: extras.extra_imgs || [],
+        isPrivate: extras.is_private || false
       };
     });
   } catch(e) { toast('⚠️ Erro: ' + e.message, 'err'); items = []; }
@@ -1475,6 +1556,7 @@ async function insertItem(it) {
   if (it.donateUrl) extras.donate_url = it.donateUrl;
   if (it.videoUrl) extras.video_url = it.videoUrl;
   if (it.extraImgs && it.extraImgs.length) extras.extra_imgs = it.extraImgs;
+  if (it.isPrivate) extras.is_private = it.isPrivate;
   const descFull = it.desc + (Object.keys(extras).length ? '|||' + JSON.stringify(extras) : '');
   const res = await SB('items', { method: 'POST',
     body: JSON.stringify({ id: it.id, title: it.title, cat: it.cat, version: it.version,
@@ -1499,6 +1581,7 @@ async function updateItemFull(it) {
   if (it.donateUrl) extrasU.donate_url = it.donateUrl;
   if (it.videoUrl) extrasU.video_url = it.videoUrl;
   if (it.extraImgs && it.extraImgs.length) extrasU.extra_imgs = it.extraImgs;
+  if (it.isPrivate) extrasU.is_private = it.isPrivate;
   const descFullU = it.desc + (Object.keys(extrasU).length ? '|||' + JSON.stringify(extrasU) : '');
   await SB('items?id=eq.' + it.id, { method: 'PATCH',
     body: JSON.stringify({ title: it.title, cat: it.cat, version: it.version,
@@ -1620,6 +1703,8 @@ function renderGrid() {
 function buildCard(it, idx) {
   // Itens agendados pro futuro só aparecem pro admin
   if (it.scheduled && new Date(it.scheduled) > new Date() && !isAdmin) return null;
+  // Itens privados só aparecem pro admin
+  if (it.isPrivate && !isAdmin) return null;
 
   const isFav = favs.has(it.id);
   const card = document.createElement('div');
@@ -1640,6 +1725,7 @@ function buildCard(it, idx) {
       ${isNew && !isPending ? '<div class="new-badge">NOVO</div>' : ''}
       ${it.eventTag ? `<div class="event-badge">🎃 ${escHtml(it.eventTag)}</div>` : ''}
       ${isPending ? `<div class="sched-badge">⏰ Agendado</div>` : ''}
+      ${it.isPrivate ? `<div class="sched-badge" style="top:8px;left:8px;right:auto;background:rgba(0,0,0,.75);color:#f5c518;border-color:#f5c518;">🔒 Privado</div>` : ''}
     </div>
     <div class="pad">
       <div class="card-title">${escHtml(it.title)}</div>
@@ -1674,10 +1760,11 @@ function renderAdminList() {
     row.innerHTML = `
       <div class="admin-item-thumb" style="${thumbStyle}"></div>
       <div class="admin-item-info">
-        <div class="admin-item-name">${escHtml(it.title)}</div>
-        <div class="admin-item-meta">${escHtml(it.cat)} · ⬇️ ${it.downloads} downloads</div>
+        <div class="admin-item-name">${it.isPrivate ? '🔒 ' : '🌐 '}${escHtml(it.title)}</div>
+        <div class="admin-item-meta">${escHtml(it.cat)} · ⬇️ ${it.downloads} downloads · ${it.isPrivate ? '<span style="color:#f5c518">Privado</span>' : '<span style="color:#4af0a0">Público</span>'}</div>
       </div>
       <div class="admin-item-actions">
+        <button class="btn btn-sec" onclick="togglePrivacy('${it.id}')" title="${it.isPrivate ? 'Tornar público' : 'Tornar privado'}" style="font-size:.75rem;padding:6px 10px;">${it.isPrivate ? '🌐 Público' : '🔒 Privado'}</button>
         <button class="btn btn-edit" onclick="openEdit('${it.id}')">✏️</button>
         <button class="btn btn-del" onclick="deleteItem('${it.id}')">🗑️</button>
       </div>`;
@@ -1955,6 +2042,12 @@ function openEdit(id) {
   if (editVideoEl) editVideoEl.value = it.videoUrl || '';
   const editExtraEl = document.getElementById('editExtraImgs');
   if (editExtraEl) editExtraEl.value = (it.extraImgs && it.extraImgs.length) ? it.extraImgs.join('\n') : '';
+  const editPrivChk = document.getElementById('editIsPrivate');
+  if (editPrivChk) {
+    editPrivChk.checked = !!it.isPrivate;
+    const hint = document.getElementById('editPrivacyHint');
+    if(hint) hint.textContent = it.isPrivate ? '🔒 Privado — só o ADM vê' : '🌐 Público — visível para todos';
+  }
   document.getElementById('editModal').style.display = 'flex';
 }
 function closeEdit(e) { if (e.target === document.getElementById('editModal')) closeEditDirect(); }
@@ -1978,6 +2071,8 @@ async function saveEdit() {
   if (editExtraEl) {
     it.extraImgs = editExtraEl.value.split('\n').map(s => s.trim()).filter(Boolean).map(sanitizeUrl).filter(Boolean);
   }
+  const editPrivChk = document.getElementById('editIsPrivate');
+  if (editPrivChk) it.isPrivate = editPrivChk.checked;
   const img = sanitizeUrl(document.getElementById('editImage').value);
   const file = sanitizeUrl(document.getElementById('editFile').value);
   if (img) it.imgSrc = img;
@@ -1989,6 +2084,18 @@ async function saveEdit() {
   closeEditDirect();
   addLog('✏️', 'Editado: ' + it.title);
   toast('✅ Item atualizado!', 'ok');
+}
+
+// ── ALTERNAR PRIVACIDADE ──
+async function togglePrivacy(id) {
+  const it = items.find(i => i.id === id);
+  if (!it) return;
+  it.isPrivate = !it.isPrivate;
+  await updateItemFull(it);
+  renderGrid();
+  renderAdminList();
+  addLog(it.isPrivate ? '🔒' : '🌐', `${it.isPrivate ? 'Privado' : 'Público'}: ${it.title}`);
+  toast(it.isPrivate ? '🔒 Item agora é privado!' : '🌐 Item agora é público!', it.isPrivate ? '' : 'ok');
 }
 
 // ── DELETAR ──
@@ -2229,6 +2336,7 @@ async function publish() {
   const videoUrl = sanitizeUrl((document.getElementById('videoInput') || {}).value || '');
   const extraImgsRaw = (document.getElementById('extraImgsInput') || {}).value || '';
   const extraImgs = extraImgsRaw.split('\n').map(s => s.trim()).filter(Boolean).map(sanitizeUrl).filter(Boolean);
+  const isPrivate = !!(document.getElementById('isPrivateInput') || {}).checked;
 
   if (scheduled && new Date(scheduled) > new Date()) {
     toast('⏰ Item agendado para ' + new Date(scheduled).toLocaleString('pt-BR'), 'ok');
@@ -2236,7 +2344,7 @@ async function publish() {
 
   const it = { id, title: t, cat, version: ver, desc, imgSrc, fileSrc,
     fileName: uploadedFileName || '', downloads: 0, date: Date.now(),
-    changelog, eventTag, scheduled, donateUrl, videoUrl, extraImgs };
+    changelog, eventTag, scheduled, donateUrl, videoUrl, extraImgs, isPrivate };
 
   toast('⏳ Salvando...', '');
   const ok = await insertItem(it);
@@ -2244,6 +2352,7 @@ async function publish() {
   items.unshift(it);
 
   ['titleInput','versionInput','imageInput','fileInput','descInput','changelogInput','eventTagInput','donateInput','schedInput','videoInput','extraImgsInput'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  const privChk = document.getElementById('isPrivateInput'); if(privChk){ privChk.checked=false; updatePrivacyHint(); }
   clearImgUpload();
   clearFileUpload();
   clearVideoUpload();
@@ -2351,6 +2460,12 @@ function login() {
     } else {
       localStorage.removeItem('tailshub_remember');
     }
+    // Marca visual de ADM no chip
+    const chip = document.getElementById('userChip');
+    if (chip) { chip.style.borderColor = '#f5c518'; chip.title = '👑 ADM ativo'; }
+    // Mostra botão flutuante
+    const admBtn = document.getElementById('admPanelBtn');
+    if (admBtn) admBtn.classList.add('show');
     closeMenu();
     document.getElementById('homePage').style.display = 'none';
     document.getElementById('adminPage').style.display = 'block';
@@ -2375,6 +2490,10 @@ function login() {
 }
 function doLogout() {
   isAdmin = false;
+  const chip = document.getElementById('userChip');
+  if (chip) { chip.style.borderColor = ''; chip.title = 'Meu perfil'; }
+  const admBtn = document.getElementById('admPanelBtn');
+  if (admBtn) admBtn.classList.remove('show');
   document.getElementById('adminPage').style.display = 'none';
   document.getElementById('homePage').style.display = 'block';
   toast('Você saiu do painel admin.', 'ok');
@@ -2391,6 +2510,40 @@ function sanitizeUrl(url) {
   if (!url) return '';
   const t = url.trim();
   return /^https?:\/\//i.test(t) ? t : '';
+}
+function updatePrivacyHint() {
+  const chk = document.getElementById('isPrivateInput');
+  const hint = document.getElementById('privacyHint');
+  if (!chk || !hint) return;
+  hint.textContent = chk.checked ? '🔒 Privado — só o ADM vê' : '🌐 Público — visível para todos';
+}
+
+// ── AUTO-LOGIN DE ADM ──
+function tryAutoLogin() {
+  if (isAdmin) return;
+  const saved = JSON.parse(localStorage.getItem('tailshub_remember') || 'null');
+  if (saved && saved.u === atob('VXJzbw==') && saved.p === atob('TFVBMTIz')) {
+    isAdmin = true;
+    // mostra badge de admin no topo
+    const chip = document.getElementById('userChip');
+    if (chip) { chip.style.borderColor = '#f5c518'; chip.title = '👑 ADM ativo'; }
+    // mostra botão flutuante de ADM
+    const btn = document.getElementById('admPanelBtn');
+    if (btn) btn.classList.add('show');
+  }
+}
+
+function goAdminPanel() {
+  if (!isAdmin) return;
+  document.getElementById('homePage').style.display = 'none';
+  const adm = document.getElementById('adminPage');
+  adm.style.display = 'block';
+  renderAdminList();
+  renderDashboard();
+  renderLog();
+  renderTabOrderList();
+  const maintCheck = document.getElementById('maintCheck');
+  if (maintCheck) maintCheck.checked = localStorage.getItem('tailshub_maint') === 'on';
 }
 
 // ── TOAST ──
@@ -3302,6 +3455,7 @@ function showProgress() {
   loadRatings();
   loadNotice();
   loadWallpaper();
+  tryAutoLogin();  // ← auto-admin se credenciais salvas
   loadMaintenance();
   showProgress();
   await loadItems();
@@ -3414,7 +3568,7 @@ function applyTabOrder() {
     }
     bar.appendChild(btn);
   });
-  updateFavBadge();
+  updateStats();
 }
 
 let dragSrcIdx = null;
@@ -3666,6 +3820,108 @@ function sendSuggest() {
   document.getElementById('suggestName').value = '';
   document.getElementById('suggestDesc').value = '';
 }
+</script>
+
+<script>
+// ══════════════════════════════════════════════════
+// ── SISTEMA DE NOME DE USUÁRIO + DISCORD NOTIF ──
+// ══════════════════════════════════════════════════
+
+const UNAME_KEY = 'tailshub_username';
+
+function getUname() { return localStorage.getItem(UNAME_KEY) || ''; }
+
+function getInitial(n) { return n ? n.trim().charAt(0).toUpperCase() : '?'; }
+
+function updateChip(name) {
+  const chip = document.getElementById('userChip');
+  const av   = document.getElementById('chipAvatar');
+  const lbl  = document.getElementById('chipName');
+  if (!chip) return;
+  if (name) {
+    av.textContent  = getInitial(name);
+    lbl.textContent = name;
+    chip.style.display = 'flex';
+  } else {
+    chip.style.display = 'none';
+  }
+}
+
+function showJoinNotif(name, type) {
+  const wrap = document.getElementById('joinNotif');
+  if (!wrap) return;
+  const isJoin = type !== 'leave';
+  const card = document.createElement('div');
+  card.className = 'join-card' + (isJoin ? '' : ' leave');
+  card.innerHTML = `
+    <div class="join-avatar">${getInitial(name)}</div>
+    <div class="join-info">
+      <b>${escHtml(name)}</b>
+      <span>${isJoin ? '✅ entrou no Tails Hub' : '👋 saiu'}</span>
+    </div>`;
+  wrap.appendChild(card);
+  setTimeout(() => {
+    card.style.animation = 'jcOut .35s ease forwards';
+    setTimeout(() => card.remove(), 360);
+  }, 4000);
+}
+
+function submitUname() {
+  const input = document.getElementById('unameInput');
+  const name  = input.value.trim();
+  if (!name) {
+    input.classList.add('err');
+    input.placeholder = 'Digite seu nome!';
+    setTimeout(() => { input.classList.remove('err'); input.placeholder = 'Seu nome de usuário...'; }, 1500);
+    return;
+  }
+  const isNew = !getUname();
+  localStorage.setItem(UNAME_KEY, name);
+  document.getElementById('usernameModal').classList.remove('show');
+  updateChip(name);
+  document.getElementById('unameSubtitle').textContent = '👋 Bem-vindo! Como quer ser chamado?';
+  document.getElementById('unameBtn').textContent = 'ENTRAR 🚀';
+  document.getElementById('unameBtn').onclick = submitUname;
+  if (isNew) {
+    setTimeout(() => showJoinNotif(name, 'join'), 300);
+  } else {
+    toast('✅ Nome atualizado para: ' + name, 'ok');
+  }
+}
+
+function openUnameEdit() {
+  const modal = document.getElementById('usernameModal');
+  const input = document.getElementById('unameInput');
+  input.value = getUname();
+  document.getElementById('unameSubtitle').textContent = '✏️ Alterar nome de usuário';
+  document.getElementById('unameBtn').textContent = 'SALVAR ✅';
+  document.getElementById('unameBtn').onclick = submitUname;
+  modal.classList.add('show');
+  setTimeout(() => input.focus(), 120);
+}
+
+document.getElementById('usernameModal').addEventListener('click', function(e) {
+  if (e.target === this && getUname()) this.classList.remove('show');
+});
+
+(function initUname() {
+  const name = getUname();
+  if (name) {
+    updateChip(name);
+    setTimeout(() => showJoinNotif(name, 'join'), 1400);
+  } else {
+    const tryShow = () => {
+      const ls = document.getElementById('loadScreen');
+      if (!ls || !document.body.contains(ls)) {
+        document.getElementById('usernameModal').classList.add('show');
+        setTimeout(() => document.getElementById('unameInput').focus(), 150);
+      } else {
+        setTimeout(tryShow, 500);
+      }
+    };
+    setTimeout(tryShow, 9000);
+  }
+})();
 </script>
 </body>
 </html>
