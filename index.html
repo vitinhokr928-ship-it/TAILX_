@@ -678,15 +678,6 @@ body.has-wallpaper .preview-box,body.has-wallpaper .edit-box,body.has-wallpaper 
     <div style="font-size:.8rem;color:var(--muted)" id="countLabel">0 itens</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
 
-      <!-- VERSION DROPDOWN -->
-      <div class="cdd" id="versionDd">
-        <button class="cdd-btn" onclick="toggleDd('versionDd')">
-          <span class="cdd-label" id="versionLabel">🏷️ Todas versões</span>
-          <span class="cdd-arrow">▾</span>
-        </button>
-        <div class="cdd-list" id="versionList"></div>
-      </div>
-
       <!-- SORT DROPDOWN -->
       <div class="cdd" id="sortDd">
         <button class="cdd-btn" onclick="toggleDd('sortDd')">
@@ -1595,14 +1586,12 @@ function renderGrid() {
   const grid = document.getElementById('grid');
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const sort = currentSort || 'newest';
-  const versionF = currentVersion || 'all';
 
   let filtered = items.filter(it => {
     const okCat = currentCat === 'all' || currentCat === it.cat ||
                   (currentCat === 'fav' && favs.has(it.id));
     const okText = it.title.toLowerCase().includes(q) || (it.desc || '').toLowerCase().includes(q);
-    const okVer = versionF === 'all' || it.version === versionF;
-    return okCat && okText && okVer;
+    return okCat && okText;
   });
 
   if (sort === 'newest')    filtered.sort((a,b) => b.date - a.date);
@@ -1888,7 +1877,6 @@ function closePreviewDirect() {
 }
 
 // ── FILTRO DE VERSÃO ──
-let currentVersion = 'all';
 let currentSort = 'newest';
 
 function updateVersionFilter() {
@@ -2279,7 +2267,7 @@ function showRanking(el) {
   document.getElementById('grid').style.display = 'none';
   document.getElementById('rankingPanel').style.display = 'flex';
   document.getElementById('countLabel').textContent = '';
-  document.getElementById('versionDd').style.display = 'none';
+  
   document.getElementById('sortDd').style.display = 'none';
   renderRanking();
 }
@@ -2328,7 +2316,7 @@ function showCat(catName, el) {
   el.classList.add('active');
   document.getElementById('grid').style.display = '';
   document.getElementById('rankingPanel').style.display = 'none';
-  document.getElementById('versionDd').style.display = '';
+  
   document.getElementById('sortDd').style.display = '';
   renderGrid();
 }
