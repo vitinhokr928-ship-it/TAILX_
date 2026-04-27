@@ -315,6 +315,15 @@ header{background:rgba(36,0,70,0.85);padding:14px 20px;position:sticky;top:0;z-i
 .btn-report:hover{background:#ff5b5b11;border-color:#ff5b5b88;opacity:1;}
 #settingsBtn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:500;background:rgba(36,0,70,0.85);border:1px solid var(--border2);color:var(--muted2);width:42px;height:42px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:all .2s;box-shadow:0 0 12px var(--glow);}
 #settingsBtn:hover{box-shadow:0 0 20px var(--glow);border-color:var(--green);}
+#suggestBtn{position:fixed;bottom:5.5rem;right:1.5rem;z-index:500;background:rgba(36,0,70,0.85);border:1px solid var(--border2);color:var(--muted2);width:42px;height:42px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:all .2s;box-shadow:0 0 12px var(--glow);}
+#suggestBtn:hover{box-shadow:0 0 20px var(--glow);border-color:var(--green);}
+#suggestModal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;display:none;align-items:center;justify-content:center;padding:16px;}
+.suggest-box{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:24px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 40px rgba(0,0,0,.6);}
+.suggest-box h3{font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--green);margin:0;text-align:center;}
+.suggest-box p{font-size:.8rem;color:var(--muted2);margin:0;text-align:center;}
+.suggest-box select,.suggest-box textarea,.suggest-box input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;color:var(--fg);font-family:'Rajdhani',sans-serif;font-size:.9rem;padding:10px 12px;box-sizing:border-box;resize:none;outline:none;}
+.suggest-box select:focus,.suggest-box textarea:focus,.suggest-box input:focus{border-color:var(--green);}
+.suggest-actions{display:flex;gap:8px;}
 #settingsPanel{position:fixed;bottom:5.5rem;right:1.5rem;z-index:499;background:rgba(26,0,58,0.95);border:1px solid var(--border2);border-radius:14px;padding:14px;width:200px;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.5);display:none;flex-direction:column;gap:12px;animation:panelIn .2s ease;}
 #settingsPanel.show{display:flex;}
 @keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -1234,6 +1243,28 @@ body.has-wallpaper .preview-box,body.has-wallpaper .edit-box,body.has-wallpaper 
   </div>
 </div>
 <button id="settingsBtn" onclick="toggleSettings()" title="Configurações">⚙️</button>
+<button id="suggestBtn" onclick="openSuggest()" title="Enviar sugestão">💡</button>
+
+<!-- MODAL SUGESTÃO -->
+<div id="suggestModal" onclick="closeSuggestOut(event)">
+  <div class="suggest-box">
+    <h3>💡 Enviar Sugestão</h3>
+    <p>Sugira texturas, addons ou qualquer coisa que queira ver no site!</p>
+    <select id="suggestType">
+      <option value="Texture">🎨 Texture</option>
+      <option value="Addon">🔧 Addon</option>
+      <option value="Map">🗺️ Map</option>
+      <option value="Skin">👤 Skin</option>
+      <option value="Outro">💬 Outro</option>
+    </select>
+    <input id="suggestName" placeholder="Nome do item (ex: Better Skies Texture)" maxlength="80">
+    <textarea id="suggestDesc" rows="3" placeholder="Descreva ou cole o link aqui..." maxlength="300"></textarea>
+    <div class="suggest-actions">
+      <button class="btn" style="flex:1;" onclick="sendSuggest()">📨 Enviar via WhatsApp</button>
+      <button class="btn btn-sec" onclick="closeSuggestDirect()">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ── ACTION LOG ──
@@ -3280,6 +3311,34 @@ function showProgress() {
   const wait = Math.max(0, 8000 - elapsed);
   setTimeout(() => { if (window._finishLoad) window._finishLoad(); }, wait);
 })();
+
+// ── SUGESTÕES ──
+function openSuggest() {
+  document.getElementById('suggestModal').style.display = 'flex';
+}
+function closeSuggestOut(e) {
+  if (e.target === document.getElementById('suggestModal')) closeSuggestDirect();
+}
+function closeSuggestDirect() {
+  document.getElementById('suggestModal').style.display = 'none';
+}
+function sendSuggest() {
+  const type = document.getElementById('suggestType').value;
+  const name = document.getElementById('suggestName').value.trim();
+  const desc = document.getElementById('suggestDesc').value.trim();
+  if (!name) { toast('Digite o nome do item!', 'err'); return; }
+  const msg = `💡 *Sugestão para o Tails Hub*
+
+📌 Tipo: ${type}
+🏷️ Nome: ${name}
+📝 Descrição: ${desc || 'Não informado'}`;
+  const phone = '5566996974005'; // COLOQUE SEU NÚMERO AQUI
+  window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+  closeSuggestDirect();
+  toast('✅ Sugestão enviada! Obrigado 💜', 'ok');
+  document.getElementById('suggestName').value = '';
+  document.getElementById('suggestDesc').value = '';
+}
 </script>
 
 <!-- MASCOTE -->
@@ -3577,6 +3636,34 @@ window.addEventListener('DOMContentLoaded', function() {
       showBubble(pick(MSGS_IDLE), 2000);
   }, 12000);
 })();
+
+// ── SUGESTÕES ──
+function openSuggest() {
+  document.getElementById('suggestModal').style.display = 'flex';
+}
+function closeSuggestOut(e) {
+  if (e.target === document.getElementById('suggestModal')) closeSuggestDirect();
+}
+function closeSuggestDirect() {
+  document.getElementById('suggestModal').style.display = 'none';
+}
+function sendSuggest() {
+  const type = document.getElementById('suggestType').value;
+  const name = document.getElementById('suggestName').value.trim();
+  const desc = document.getElementById('suggestDesc').value.trim();
+  if (!name) { toast('Digite o nome do item!', 'err'); return; }
+  const msg = `💡 *Sugestão para o Tails Hub*
+
+📌 Tipo: ${type}
+🏷️ Nome: ${name}
+📝 Descrição: ${desc || 'Não informado'}`;
+  const phone = '5566996974005'; // COLOQUE SEU NÚMERO AQUI
+  window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+  closeSuggestDirect();
+  toast('✅ Sugestão enviada! Obrigado 💜', 'ok');
+  document.getElementById('suggestName').value = '';
+  document.getElementById('suggestDesc').value = '';
+}
 </script>
 </body>
 </html>
